@@ -17,7 +17,6 @@ jobs:
           repository: troocart/iam-users-iac
           ref: initial_iac
           token: ${{ secrets.GH_PAT }}
-          path: .github/actions 
 
       - name: Terraform Format
         id: fmt
@@ -63,9 +62,8 @@ jobs:
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
-              repo: troocart/iam-users-iac,
-              body: output,
-              token: ${{ secrets.GH_PAT }}
+              repo: context.repo.repo,
+              body: output
             })
 
       - name: Terraform Plan Status
