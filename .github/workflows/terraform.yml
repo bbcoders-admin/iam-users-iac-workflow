@@ -10,6 +10,7 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
+    environment: global
     steps:
       - name: Checkout
         uses: actions/checkout@v2
