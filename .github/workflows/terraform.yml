@@ -44,9 +44,6 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
-            #### Github url Initialization ⚙️\`${{ context.repo.repo }}\`
-            #### Github url Initialization ⚙️\`${{ context.repo.owner }}\`
-            #### Github url Initialization ⚙️\`${{ context.repo.repo }}\`
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
@@ -60,7 +57,7 @@ jobs:
 
             </details>
 
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            *Pusher: @${{ context.repo.repo }}, Action: \`${{ github.event_name }}\`*`;
 
             github.issues.createComment({
               issue_number: context.issue.number,
