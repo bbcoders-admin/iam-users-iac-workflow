@@ -63,8 +63,9 @@ jobs:
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
+              repo: troocart/iam-users-iac,
+              body: output,
+              token: ${{ secrets.GH_PAT }}
             })
 
       - name: Terraform Plan Status
