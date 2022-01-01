@@ -14,9 +14,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-        repository: troocart/iam-users-iac
-        token: ${{ secrets.GH_PAT }}
-        path: .github/actions 
+          repository: troocart/iam-users-iac
+          ref: initial_iac
+          token: ${{ secrets.GH_PAT }}
+          path: .github/actions 
 
       - name: Terraform Format
         id: fmt
