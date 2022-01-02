@@ -57,12 +57,11 @@ jobs:
 
       - name: Commit Terraform state changes
         if: steps.environments.branch_prefix == 'release' && github.event_name == 'push'
-        uses: EndBug/add-and-commit@v7
+        uses: actions-js/push@master
         with:
-          author_name: troocart
-          author_email: troocart@gmail.com
-          message: 'update state files'
-          add: ["./state/terraform.tfstate", "./state/terraform.tfstate.backup"]
+          github_token: ${{ secrets.GH_PAT }}
+          author_name: iam-users-iac-workflow
+          message: 'update state files - ${date}'
 
 
 
