@@ -13,18 +13,16 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
-      # - name: Configure Environment variables
-      #   id: environments
-      #   run: |
-      #     echo "Running on branch ${{ github.ref_name }}"
-      #     branch_prefix=$(echo ${{ github.ref_name }} |  cut -d'/' -f 1)
-      #     client_name=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
-      #     echo "Branch Name $branch_prefix"
-      #     echo "Client Name $client_name"
-      #     if [ "$branch_prefix" = "release" ]; then
-      #       echo "::set-output name=name::$client_name"
-      #       echo "GITHUB_SHA_SHORT=$(echo $CLIENT_NAME | cut -c 1-6)" >> $GITHUB_ENV
-      #     fi
+      - name: Configure Environment variables
+        id: environments
+        run: |
+          echo "Running on branch ${{ github.ref_name }}"
+          branch_prefix=$(echo ${{ github.ref_name }} |  cut -d'/' -f 1)
+          client_name=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
+          echo "Branch Name $branch_prefix"
+          echo "Client Name $client_name"
+          echo "::set-output name=branch_prefix::$branch_prefix"
+          echo "::set-output name=client_name::$client_name"
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -46,7 +44,6 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        if: github.event_name == 'pull_request'
         run: terraform plan -no-color
         continue-on-error: true
 
@@ -55,7 +52,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: steps.environments.branch_prefix == 'release' && github.event_name == 'push'
         run: terraform apply -auto-approve
 
       # - name: Commit Terraform state changes
