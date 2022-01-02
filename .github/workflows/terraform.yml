@@ -19,7 +19,7 @@ jobs:
           echo "Running on branch ${{ github.ref_name }}"
           branch_prefix=$(echo ${{ github.ref_name }} |  cut -d'/' -f 1)
           client_name=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
-          echo "Branch Name $branch_prefix
+          echo "Branch Name $branch_prefix"
           echo "Client Name $client_name"
           # if [ "$branch_prefix" = "release" ]; then
           #   echo "::set-output name=env_name::$client_name"
