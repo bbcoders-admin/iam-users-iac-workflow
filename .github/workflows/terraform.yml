@@ -47,9 +47,9 @@ jobs:
         run: terraform plan -no-color
         continue-on-error: true
 
-      - name: Terraform Plan Status
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
+      # - name: Terraform Plan Status
+      #   if: steps.plan.outcome == 'failure'
+      #   run: exit 1
 
       # - name: Terraform Apply
       #   if: steps.environments.branch_prefix == 'release' && github.event_name == 'push'
