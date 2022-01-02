@@ -56,7 +56,7 @@ jobs:
       #   run: terraform apply -auto-approve
 
       - name: Commit Terraform state changes
-        if: steps.environments.branch_prefix == 'release' && github.event_name == 'push'
+        if: steps.environments.outputs.branch_prefix == 'release' && github.event_name == 'push'
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
