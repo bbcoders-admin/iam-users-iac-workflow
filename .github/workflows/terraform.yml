@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: troocart/iam-users-iac
-          ref: initial_iac
+          ref: ${{github.ref_name}}
           token: ${{ secrets.GH_PAT }}
 
       - name: Terraform Format
