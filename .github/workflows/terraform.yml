@@ -57,11 +57,16 @@ jobs:
 
       - name: Commit Terraform state changes
         if: steps.environments.outputs.branch_prefix == 'release' && github.event_name == 'push'
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          author_name: iam-users-iac-workflow
-          message: 'update state files - ${date}'
+        run: |
+           echo "Commiting state changes"
+           /usr/bin/git add state
+           /usr/bin/git commit -m "update state files - ${date}"
+           /usr/bin/git push
+        # uses: actions-js/push@master
+        # with:
+        #   github_token: ${{ secrets.GH_PAT }}
+        #   author_name: iam-users-iac-workflow
+        #   message: 'update state files - ${date}'
 
 
 
