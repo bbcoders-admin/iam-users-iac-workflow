@@ -21,9 +21,9 @@ jobs:
           client_name=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
           echo "Branch Name $branch_prefix
           echo "Client Name $client_name"
-          if [ "$branch_prefix" = "release" ]; then
-            echo "::set-output name=env_name::$client_name"
-          fi
+          # if [ "$branch_prefix" = "release" ]; then
+          #   echo "::set-output name=env_name::$client_name"
+          # fi
       - name: Checkout
         uses: actions/checkout@v2
         with:
