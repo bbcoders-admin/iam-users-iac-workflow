@@ -47,13 +47,13 @@ jobs:
         run: terraform plan -no-color
         continue-on-error: true
 
-      # - name: Terraform Plan Status
-      #   if: steps.plan.outcome == 'failure'
-      #   run: exit 1
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
 
-      # - name: Terraform Apply
-      #   if: steps.environments.branch_prefix == 'release' && github.event_name == 'push'
-      #   run: terraform apply -auto-approve
+      - name: Terraform Apply
+        if: steps.environments.outputs.branch_prefix == 'release' && github.event_name == 'push'
+        run: terraform apply -auto-approve
 
       - name: Commit Terraform state changes
         if: steps.environments.outputs.branch_prefix == 'release' && github.event_name == 'push'
@@ -61,7 +61,7 @@ jobs:
            echo "Commiting state changes"
            git config --global user.name 'iam-users-iac'
            git config --global user.email 'your-username@users.noreply.github.com'
-           git commit -am "update state files - ${date}"
+           git commit -am "auto update state files"
            git push
         # uses: actions-js/push@master
         # with:
